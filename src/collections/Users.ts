@@ -18,7 +18,7 @@ export const Users: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['id', 'name', 'email', 'role', 'organization'],
+    defaultColumns: ['name', 'email', 'role', 'organization'],
   },
   access: {
     // Only admins can create users
