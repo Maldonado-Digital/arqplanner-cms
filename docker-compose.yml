@@ -11,23 +11,25 @@ services:
     working_dir: /home/node/app/
     command: sh -c "yarn install && yarn dev"
     depends_on:
-      - postgres
+      - mongo
     env_file:
       - .env
 
-  postgres:
-    image: postgres
+  mongo:
+    image: mongo:latest
     ports:
-      - '5432:5432'
+      - '27017:27017'
+    command:
+      - --storageEngine=wiredTiger
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: arqplanner
-      PGDATA: /var/lib/postgresql/data
+      MONGO_INITDB_ROOT_USERNAME: arqplanner
+      MONGO_INITDB_ROOT_PASSWORD: arqplanner
+      MONGO_INITDB_DATABASE: arqplanner
     volumes:
-      - pg_data:/var/lib/postgresql/data
-    tty: true
+      - mongo_data:/data/db
+    logging:
+      driver: none
 
 volumes:
-  pg_data:
+  mongo_data:
   node_modules:

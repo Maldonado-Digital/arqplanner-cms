@@ -21,7 +21,6 @@ export const step: Field = {
       type: 'checkbox',
       label: 'Etapa Completa',
       localized: true,
-      required: true,
       defaultValue: false,
     },
   ],

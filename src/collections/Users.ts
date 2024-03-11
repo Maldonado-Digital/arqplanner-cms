@@ -1,6 +1,5 @@
 import { CollectionConfig } from 'payload/types'
 import { isAdmin, isAdminFieldLevel } from '../access/isAdmin'
-import { isAdminOrIsEditorFromSameOrg } from '../access/isAdminOrIsEditorFromSameOrg'
 import { isAdminOrSelf } from '../access/isAdminOrSelf'
 
 export const Users: CollectionConfig = {
@@ -10,21 +9,22 @@ export const Users: CollectionConfig = {
   },
   labels: {
     plural: {
-      'pt-BR': 'Usuários',
+      'pt-BR': 'Acessos',
     },
     singular: {
-      'pt-BR': 'Usuário',
+      'pt-BR': 'Acesso',
     },
   },
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'email', 'role', 'organization'],
+    hidden: ({ user }) => user?.role !== 'admin',
   },
   access: {
     // Only admins can create users
     create: isAdmin,
     // Admins can read all, but any other logged in user can only read themselves
-    read: isAdminOrIsEditorFromSameOrg,
+    read: isAdminOrSelf,
     // Admins can update all, but any other logged in user can only update themselves
     update: isAdminOrSelf,
     // Only admins can delete
@@ -66,7 +66,7 @@ export const Users: CollectionConfig = {
       saveToJWT: true,
       type: 'relationship',
       relationTo: 'organizations',
-      label: 'Organização',
+      label: 'Empresa',
       hasMany: false,
       access: {
         // Only admins can create or update a value for this field
@@ -74,8 +74,7 @@ export const Users: CollectionConfig = {
         update: isAdminFieldLevel,
       },
       admin: {
-        condition: ({ role }) => role && role !== 'admin',
-        description: 'This field sets which sites that this user has access to.',
+        condition: ({ role }) => role === 'editor',
       },
     },
   ],

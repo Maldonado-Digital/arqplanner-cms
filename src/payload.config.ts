@@ -26,9 +26,12 @@ export default buildConfig({
         Logo: SvgLogo,
       },
     },
+    meta: {
+      titleSuffix: '- ArqPlanner',
+    },
   },
   editor: slateEditor({}),
-  collections: [Users, Customers, Works, Organizations, Media],
+  collections: [Users, Customers, Organizations, Works, Media],
   localization: {
     locales: [
       {

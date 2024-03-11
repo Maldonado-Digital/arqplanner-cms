@@ -1,4 +1,7 @@
 import { CollectionConfig } from 'payload/types'
+import { isAdminFieldLevel } from '../access/isAdmin'
+import { isAdminOrEditor, isAdminOrEditorFieldLevel } from '../access/isAdminOrEditor'
+import { isAdminSelfOrSameOrg } from '../access/isAdminSelfOrSameOrg'
 export const Customers: CollectionConfig = {
   slug: 'customers',
   auth: {
@@ -14,17 +17,18 @@ export const Customers: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['id', 'name', 'email', 'role', 'organization'],
+    defaultColumns: ['name', 'email', 'role', 'organization'],
+    hideAPIURL: true,
   },
   access: {
     // Only admins can create users
-    // create: isAdmin,
+    create: isAdminOrEditor,
     // // Admins can read all, but any other logged in user can only read themselves
-    // read: isAdminOrIsEditorFromSameOrg,
+    read: isAdminSelfOrSameOrg,
     // // Admins can update all, but any other logged in user can only update themselves
-    // update: isAdminOrSelf,
+    update: isAdminSelfOrSameOrg,
     // // Only admins can delete
-    // delete: isAdmin,
+    delete: isAdminSelfOrSameOrg,
   },
   fields: [
     // Email added by default
@@ -36,24 +40,6 @@ export const Customers: CollectionConfig = {
       localized: true,
     },
     {
-      name: 'organization',
-      saveToJWT: true,
-      type: 'relationship',
-      relationTo: 'organizations',
-      label: 'Organização',
-      hasMany: false,
-      // defaultValue: {},
-      access: {
-        // Only admins can create or update a value for this field
-        // create: isAdminFieldLevel,
-        // update: isAdminFieldLevel,
-      },
-      admin: {
-        // condition: ({ role }) => role && role !== 'admin',
-        description: 'This field sets which sites that this user has access to.',
-      },
-    },
-    {
       name: 'works',
       saveToJWT: true,
       type: 'relationship',
@@ -62,12 +48,25 @@ export const Customers: CollectionConfig = {
       hasMany: true,
       access: {
         // Only admins can create or update a value for this field
-        // create: isAdminFieldLevel,
-        // update: isAdminFieldLevel,
+        create: isAdminOrEditorFieldLevel,
+        update: isAdminOrEditorFieldLevel,
       },
-      admin: {
-        // condition: ({ role }) => role && role !== 'admin',
-        // description: 'This field sets which sites that this user has access to.',
+    },
+    {
+      name: 'organization',
+      type: 'relationship',
+      relationTo: 'organizations',
+      saveToJWT: true,
+      label: 'Empresa',
+      hasMany: false,
+      defaultValue: ({ user }) => {
+        if (user.role === 'editor' && user.organization) {
+          return user.organization
+        }
+      },
+      access: {
+        create: isAdminFieldLevel,
+        update: isAdminFieldLevel,
       },
     },
   ],

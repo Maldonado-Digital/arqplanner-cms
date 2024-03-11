@@ -1,8 +1,13 @@
 import { CollectionConfig } from 'payload/types'
+import { isAdminFieldLevel } from '../access/isAdmin'
+import { isAdminOrEditorFieldLevel } from '../access/isAdminOrEditor'
+import { isAdminOrIsFromSameOrg } from '../access/isAdminOrIsFromSameOrg'
 import { document } from '../fields/document'
 import { event } from '../fields/event'
+import { photo } from '../fields/photo'
 import { project } from '../fields/project'
-import { quoting } from '../fields/quoting'
+import { quote } from '../fields/quote'
+import { render } from '../fields/render'
 import { step } from '../fields/step'
 
 export const Works: CollectionConfig = {
@@ -13,6 +18,13 @@ export const Works: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
+    defaultColumns: ['title', 'steps', 'events', 'projects', 'documents', 'quotes'],
+    hideAPIURL: true,
+  },
+  access: {
+    read: isAdminOrIsFromSameOrg(),
+    update: isAdminOrIsFromSameOrg(),
+    delete: isAdminOrIsFromSameOrg(),
   },
   fields: [
     {
@@ -61,21 +73,12 @@ export const Works: CollectionConfig = {
       name: 'renders',
       type: 'array',
       localized: true,
-      label: '3Ds',
+      label: 'Renders 3D',
       labels: {
-        singular: '3D',
-        plural: '3Ds',
+        singular: 'Render 3D',
+        plural: 'Renders 3D',
       },
-      fields: [
-        {
-          name: 'files',
-          type: 'upload',
-          relationTo: 'media',
-          label: 'Arquivo',
-          localized: true,
-          required: true,
-        },
-      ],
+      fields: [render],
     },
     {
       name: 'documents',
@@ -97,19 +100,10 @@ export const Works: CollectionConfig = {
         singular: 'Foto',
         plural: 'Fotos',
       },
-      fields: [
-        {
-          name: 'files',
-          type: 'upload',
-          relationTo: 'media',
-          label: 'Arquivo',
-          localized: true,
-          required: true,
-        },
-      ],
+      fields: [photo],
     },
     {
-      name: 'quotings',
+      name: 'quotes',
       type: 'array',
       localized: true,
       label: 'Orçamentos',
@@ -117,7 +111,27 @@ export const Works: CollectionConfig = {
         singular: 'Orçamento',
         plural: 'Orçamentos',
       },
-      fields: [quoting],
+      fields: [quote],
+    },
+    {
+      name: 'organization',
+      type: 'relationship',
+      relationTo: 'organizations',
+      label: 'Empresa',
+      hasMany: false,
+      defaultValue: ({ user }) => {
+        if (user.role === 'editor' && user.organization) {
+          return user.organization
+        }
+      },
+      access: {
+        read: isAdminOrEditorFieldLevel,
+        create: isAdminFieldLevel,
+        update: isAdminFieldLevel,
+      },
+      // admin: {
+      //   hidden: true,
+      // },
     },
   ],
 }

@@ -5,16 +5,16 @@ export const Organizations: CollectionConfig = {
   slug: 'organizations',
   labels: {
     plural: {
-      'pt-BR': 'Organizações',
+      'pt-BR': 'Empresas',
     },
     singular: {
-      'pt-BR': 'Organização',
+      'pt-BR': 'Empresa',
     },
   },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['id', 'name', 'updatedAt', 'createdAt'],
-    hidden: ({ user }) => user.role !== 'admin',
+    defaultColumns: ['name', 'updatedAt', 'createdAt'],
+    hidden: ({ user }) => user?.role !== 'admin',
   },
   access: {
     // Only admins can create organizations

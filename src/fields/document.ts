@@ -38,6 +38,10 @@ export const document: Field = {
           label: 'Atas de Reunião',
           value: 'meeting_minutes',
         },
+        {
+          label: 'Outro',
+          value: 'other',
+        },
       ],
     },
     {

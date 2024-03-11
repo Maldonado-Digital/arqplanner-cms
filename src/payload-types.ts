@@ -9,8 +9,9 @@
 export interface Config {
   collections: {
     users: User;
-    works: Work;
+    customers: Customer;
     organizations: Organization;
+    works: Work;
     media: Media;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -22,10 +23,10 @@ export interface Config {
  * via the `definition` "users".
  */
 export interface User {
-  id: number;
+  id: string;
   name?: string | null;
-  role?: ('admin' | 'editor' | 'customer') | null;
-  organization?: (number | null) | Organization;
+  role?: ('admin' | 'editor') | null;
+  organization?: (string | null) | Organization;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -42,23 +43,43 @@ export interface User {
  * via the `definition` "organizations".
  */
 export interface Organization {
-  id: number;
+  id: string;
   name: string;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customers".
+ */
+export interface Customer {
+  id: string;
+  name?: string | null;
+  works?: (string | Work)[] | null;
+  organization?: (string | null) | Organization;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "works".
  */
 export interface Work {
-  id: number;
+  id: string;
   title?: string | null;
   steps?:
     | {
         step: {
           title: string;
-          is_completed: boolean;
+          is_completed?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -85,14 +106,23 @@ export interface Work {
           title: string;
           status: 'pending' | 'approved' | 'archived';
           type: 'executive' | 'wood_detailing' | 'wet_spaces_detailing';
-          file: number | Media;
+          file: string | Media;
         };
         id?: string | null;
       }[]
     | null;
   renders?:
     | {
-        files: number | Media;
+        render: {
+          title: string;
+          status: 'pending' | 'approved' | 'archived';
+          files?:
+            | {
+                uploads: string | Media;
+                id?: string | null;
+              }[]
+            | null;
+        };
         id?: string | null;
       }[]
     | null;
@@ -100,27 +130,36 @@ export interface Work {
     | {
         document: {
           title: string;
-          type: 'offers' | 'briefings' | 'contracts' | 'meeting_minutes';
-          file: number | Media;
+          type: 'offers' | 'briefings' | 'contracts' | 'meeting_minutes' | 'other';
+          file: string | Media;
         };
         id?: string | null;
       }[]
     | null;
   photos?:
     | {
-        files: number | Media;
-        id?: string | null;
-      }[]
-    | null;
-  quotings?:
-    | {
-        quoting: {
+        photo: {
           title: string;
-          file: number | Media;
+          files?:
+            | {
+                uploads: string | Media;
+                id?: string | null;
+              }[]
+            | null;
         };
         id?: string | null;
       }[]
     | null;
+  quotes?:
+    | {
+        quote: {
+          title: string;
+          file: string | Media;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  organization?: (string | null) | Organization;
   updatedAt: string;
   createdAt: string;
 }
@@ -129,7 +168,8 @@ export interface Work {
  * via the `definition` "media".
  */
 export interface Media {
-  id: number;
+  id: string;
+  organization?: (string | null) | Organization;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -144,11 +184,16 @@ export interface Media {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: number;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
+  id: string;
+  user:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }
+    | {
+        relationTo: 'customers';
+        value: string | Customer;
+      };
   key?: string | null;
   value?:
     | {
@@ -167,7 +212,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: number;
+  id: string;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
