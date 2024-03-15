@@ -1,4 +1,4 @@
-import { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload/types'
 import { isAdmin, isAdminFieldLevel } from '../access/isAdmin'
 import { isAdminOrSelf } from '../access/isAdminOrSelf'
 
@@ -66,7 +66,7 @@ export const Users: CollectionConfig = {
       saveToJWT: true,
       type: 'relationship',
       relationTo: 'organizations',
-      label: 'Empresa',
+      label: 'Escritório',
       hasMany: false,
       access: {
         // Only admins can create or update a value for this field

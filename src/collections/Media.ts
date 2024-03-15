@@ -1,4 +1,4 @@
-import { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload/types'
 import { isAdminFieldLevel } from '../access/isAdmin'
 import { isAdminOrEditorFieldLevel } from '../access/isAdminOrEditor'
 import { isAdminOrIsFromSameOrg } from '../access/isAdminOrIsFromSameOrg'
@@ -26,14 +26,19 @@ export const Media: CollectionConfig = {
     staticURL: '/media',
     staticDir: 'media',
     adminThumbnail: 'thumbnail',
-    mimeTypes: ['image/*', 'application/pdf', 'application/acad'],
+    mimeTypes: [
+      'image/*',
+      'application/pdf',
+      'application/acad',
+      '.dwg'
+    ],
   },
   fields: [
     {
       name: 'organization',
       type: 'relationship',
       relationTo: 'organizations',
-      label: 'Empresa',
+      label: 'Escritório',
       hasMany: false,
       defaultValue: ({ user }) => {
         if (user.role === 'editor' && user.organization) {

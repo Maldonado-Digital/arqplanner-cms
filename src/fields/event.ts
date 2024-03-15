@@ -4,7 +4,7 @@ export const event: Field = {
   name: 'event',
   type: 'group',
   localized: true,
-  label: 'Evento',
+  label: 'Compromisso',
   fields: [
     {
       name: 'title',
@@ -13,7 +13,7 @@ export const event: Field = {
       localized: true,
       required: true,
       admin: {
-        placeholder: 'Título do evento',
+        placeholder: 'Título do compromisso',
       },
     },
     {
@@ -23,7 +23,7 @@ export const event: Field = {
       localized: true,
       required: true,
       admin: {
-        placeholder: 'Descreva os detalhes do evento...',
+        placeholder: 'Descreva os detalhes do compromisso...',
       },
     },
     {
@@ -47,7 +47,7 @@ export const event: Field = {
       localized: true,
       required: true,
       admin: {
-        placeholder: 'Endereço do evento',
+        placeholder: 'Endereço do compromisso',
       },
     },
     {

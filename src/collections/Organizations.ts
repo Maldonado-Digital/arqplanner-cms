@@ -5,10 +5,10 @@ export const Organizations: CollectionConfig = {
   slug: 'organizations',
   labels: {
     plural: {
-      'pt-BR': 'Empresas',
+      'pt-BR': 'Escritórios',
     },
     singular: {
-      'pt-BR': 'Empresa',
+      'pt-BR': 'Escritório',
     },
   },
   admin: {

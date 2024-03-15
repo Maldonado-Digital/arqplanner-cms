@@ -1,4 +1,4 @@
-import { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload/types'
 import { isAdminFieldLevel } from '../access/isAdmin'
 import { isAdminOrEditorFieldLevel } from '../access/isAdminOrEditor'
 import { isAdminOrIsFromSameOrg } from '../access/isAdminOrIsFromSameOrg'
@@ -51,10 +51,10 @@ export const Works: CollectionConfig = {
       name: 'events',
       type: 'array',
       localized: true,
-      label: 'Eventos',
+      label: 'Agenda',
       labels: {
-        singular: 'Evento',
-        plural: 'Eventos',
+        singular: 'Compromisso',
+        plural: 'Agenda',
       },
       fields: [event],
     },
@@ -117,7 +117,7 @@ export const Works: CollectionConfig = {
       name: 'organization',
       type: 'relationship',
       relationTo: 'organizations',
-      label: 'Empresa',
+      label: 'Escritório',
       hasMany: false,
       defaultValue: ({ user }) => {
         if (user.role === 'editor' && user.organization) {

@@ -1,4 +1,4 @@
-import { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload/types'
 import { isAdminFieldLevel } from '../access/isAdmin'
 import { isAdminOrEditor, isAdminOrEditorFieldLevel } from '../access/isAdminOrEditor'
 import { isAdminSelfOrSameOrg } from '../access/isAdminSelfOrSameOrg'
@@ -18,7 +18,7 @@ export const Customers: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'email', 'role', 'organization'],
-    hideAPIURL: true,
+    // hideAPIURL: true,
   },
   access: {
     // Only admins can create users
@@ -35,8 +35,21 @@ export const Customers: CollectionConfig = {
     // Add more fields as needed
     {
       name: 'name',
+      required: true,
       type: 'text',
       label: 'Nome',
+      localized: true,
+    },
+    {
+      name: 'phone_number',
+      type: 'text',
+      label: 'Telefone',
+      localized: true,
+    },
+    {
+      name: 'social_media',
+      type: 'text',
+      label: 'Instagram',
       localized: true,
     },
     {
@@ -57,7 +70,7 @@ export const Customers: CollectionConfig = {
       type: 'relationship',
       relationTo: 'organizations',
       saveToJWT: true,
-      label: 'Empresa',
+      label: 'Escritório',
       hasMany: false,
       defaultValue: ({ user }) => {
         if (user.role === 'editor' && user.organization) {
