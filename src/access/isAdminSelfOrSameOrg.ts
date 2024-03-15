@@ -1,6 +1,7 @@
-import { Access } from 'payload/config'
+import type { Access } from 'payload/config'
 
 export const isAdminSelfOrSameOrg: Access = ({ req: { user } }) => {
+  console.log(user)
   // Need to be logged in
   if (user) {
     // If user has role of 'admin'
@@ -18,10 +19,10 @@ export const isAdminSelfOrSameOrg: Access = ({ req: { user } }) => {
       }
     }
 
-    if (!user.role) {
+    if (!user.role && user.organization) {
       return {
-        id: {
-          equals: user.id,
+        organization: {
+          equals: user.organization,
         },
       }
     }

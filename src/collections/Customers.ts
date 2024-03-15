@@ -17,7 +17,7 @@ export const Customers: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'email', 'role', 'organization'],
+    defaultColumns: ['name', 'email', 'role', 'organization', 'works'],
     // hideAPIURL: true,
   },
   access: {

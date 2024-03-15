@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload/types'
 import { isAdminFieldLevel } from '../access/isAdmin'
 import { isAdminOrEditorFieldLevel } from '../access/isAdminOrEditor'
 import { isAdminOrIsFromSameOrg } from '../access/isAdminOrIsFromSameOrg'
+import { isAdminSelfOrSameOrg } from '../access/isAdminSelfOrSameOrg'
 import { document } from '../fields/document'
 import { event } from '../fields/event'
 import { photo } from '../fields/photo'
@@ -19,10 +20,10 @@ export const Works: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'steps', 'events', 'projects', 'documents', 'quotes'],
-    hideAPIURL: true,
+    // hideAPIURL: true,
   },
   access: {
-    read: isAdminOrIsFromSameOrg(),
+    read: isAdminSelfOrSameOrg,
     update: isAdminOrIsFromSameOrg(),
     delete: isAdminOrIsFromSameOrg(),
   },
@@ -125,7 +126,7 @@ export const Works: CollectionConfig = {
         }
       },
       access: {
-        read: isAdminOrEditorFieldLevel,
+        // read: isAdminOrEditorFieldLevel,
         create: isAdminFieldLevel,
         update: isAdminFieldLevel,
       },
