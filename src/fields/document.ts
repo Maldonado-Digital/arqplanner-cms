@@ -51,6 +51,9 @@ export const document: Field = {
       label: 'Arquivo',
       localized: true,
       required: true,
+      access: {
+        read: () => true,
+      },
     },
   ],
 }

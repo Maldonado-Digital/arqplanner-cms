@@ -4,7 +4,7 @@ export const render: Field = {
   name: 'render',
   type: 'group',
   localized: true,
-  label: 'Render 3D',
+  label: 'Imagem 3D',
   fields: [
     {
       name: 'title',

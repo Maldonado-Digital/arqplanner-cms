@@ -35,7 +35,7 @@ export const event: Field = {
       admin: {
         date: {
           pickerAppearance: 'dayAndTime',
-          displayFormat: "dd/MM/yyyy 'às' hh:mm",
+          displayFormat: "dd/MM/yyyy 'às' HH:mm",
         },
         placeholder: 'dd/mm/aaaa às 00:00',
       },
@@ -73,6 +73,7 @@ export const event: Field = {
       name: 'contact_number',
       type: 'text',
       label: 'Telefone de Contato',
+      required: true,
       localized: true,
       admin: {
         placeholder: '(99) 99999-9999',

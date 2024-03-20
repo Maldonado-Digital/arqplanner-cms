@@ -69,6 +69,7 @@ export const Customers: CollectionConfig = {
       name: 'organization',
       type: 'relationship',
       relationTo: 'organizations',
+      required: true,
       saveToJWT: true,
       label: 'Escritório',
       hasMany: false,

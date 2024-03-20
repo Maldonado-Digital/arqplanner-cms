@@ -74,10 +74,10 @@ export const Works: CollectionConfig = {
       name: 'renders',
       type: 'array',
       localized: true,
-      label: 'Renders 3D',
+      label: 'Imagens 3D',
       labels: {
-        singular: 'Render 3D',
-        plural: 'Renders 3D',
+        singular: 'Imagem 3D',
+        plural: 'Imagens 3D',
       },
       fields: [render],
     },
