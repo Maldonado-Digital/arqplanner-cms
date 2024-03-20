@@ -24,11 +24,11 @@ export const Customers: CollectionConfig = {
     // Only admins can create users
     create: isAdminOrEditor,
     // // Admins can read all, but any other logged in user can only read themselves
-    read: isAdminSelfOrSameOrg,
+    // read: isAdminSelfOrSameOrg,
     // // Admins can update all, but any other logged in user can only update themselves
-    update: isAdminSelfOrSameOrg,
+    // update: isAdminSelfOrSameOrg,
     // // Only admins can delete
-    delete: isAdminSelfOrSameOrg,
+    // delete: isAdminSelfOrSameOrg,
   },
   fields: [
     // Email added by default

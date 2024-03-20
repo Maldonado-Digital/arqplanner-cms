@@ -16,12 +16,12 @@ export const Media: CollectionConfig = {
   admin: {
     hideAPIURL: true,
   },
-  access: {
-    read: isAdminOrIsFromSameOrg(),
-    create: isAdminOrIsFromSameOrg(),
-    update: isAdminOrIsFromSameOrg(),
-    delete: isAdminOrIsFromSameOrg(),
-  },
+  // access: {
+  //   read: isAdminOrIsFromSameOrg(),
+  //   create: isAdminOrIsFromSameOrg(),
+  //   update: isAdminOrIsFromSameOrg(),
+  //   delete: isAdminOrIsFromSameOrg(),
+  // },
   upload: {
     staticURL: '/media',
     staticDir: 'media',

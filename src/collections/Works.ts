@@ -24,8 +24,8 @@ export const Works: CollectionConfig = {
   },
   access: {
     // read: isAdminSelfOrSameOrg,
-    update: isAdminOrIsFromSameOrg(),
-    delete: isAdminOrIsFromSameOrg(),
+    // update: isAdminOrIsFromSameOrg(),
+    // delete: isAdminOrIsFromSameOrg(),
   },
   fields: [
     {
