@@ -23,7 +23,7 @@ export const Works: CollectionConfig = {
     // hideAPIURL: true,
   },
   access: {
-    read: isAdminSelfOrSameOrg,
+    // read: isAdminSelfOrSameOrg,
     update: isAdminOrIsFromSameOrg(),
     delete: isAdminOrIsFromSameOrg(),
   },
