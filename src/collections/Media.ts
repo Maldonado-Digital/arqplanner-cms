@@ -26,7 +26,8 @@ export const Media: CollectionConfig = {
     staticURL: '/media',
     staticDir: 'media',
     adminThumbnail: 'thumbnail',
-    mimeTypes: ['image/*', 'application/pdf', 'application/acad', '.dwg'],
+    // mimeTypes: ['image/*', 'application/pdf', 'application/acad', '.dwg'],
+    mimeTypes: ['image/*', 'application/pdf'],
   },
   fields: [
     {

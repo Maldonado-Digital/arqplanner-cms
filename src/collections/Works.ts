@@ -22,11 +22,11 @@ export const Works: CollectionConfig = {
     defaultColumns: ['title', 'steps', 'events', 'projects', 'documents', 'quotes'],
     // hideAPIURL: true,
   },
-  access: {
-    // read: isAdminSelfOrSameOrg,
-    // update: isAdminOrIsFromSameOrg(),
-    // delete: isAdminOrIsFromSameOrg(),
-  },
+  // access: {
+  // read: isAdminSelfOrSameOrg,
+  // update: isAdminOrIsFromSameOrg(),
+  // delete: isAdminOrIsFromSameOrg(),
+  // },
   fields: [
     {
       name: 'title',
