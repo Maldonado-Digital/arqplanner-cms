@@ -25,7 +25,7 @@ export const isAdminOrIsFromSameOrg =
         // Otherwise, we can restrict it based on the `site` field
         return {
           organization: {
-            equals: user.organization,
+            equals: user.organization?.id ? user.organization?.id : user.organization,
           },
         }
       }

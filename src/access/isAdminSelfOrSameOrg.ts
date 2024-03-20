@@ -22,7 +22,7 @@ export const isAdminSelfOrSameOrg: Access = ({ req: { user } }) => {
     if (!user.role && user.organization) {
       return {
         organization: {
-          equals: user.organization,
+          equals: user.organization?.id ? user.organization?.id : user.organization,
         },
       }
     }
