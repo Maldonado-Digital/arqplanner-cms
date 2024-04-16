@@ -30,12 +30,12 @@ export const photo: Field = {
           label: 'Arquivo',
           localized: true,
           required: true,
-          filterOptions: ({ user }) => {
-            console.log('user', user)
-            return {
-              organization: { equals: user.organization },
-            }
-          },
+          // filterOptions: ({ user }) => {
+          //   console.log('user', user)
+          //   return {
+          //     organization: { equals: user.organization },
+          //   }
+          // },
         },
       ],
     },

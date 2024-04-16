@@ -1,4 +1,4 @@
-import { CollectionBeforeChangeHook } from 'payload/types'
+import type { CollectionBeforeChangeHook } from 'payload/types'
 
 export const setCreatedBy: CollectionBeforeChangeHook = async ({
   data, // incoming data to update or create with
