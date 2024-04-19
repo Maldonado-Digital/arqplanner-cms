@@ -63,6 +63,16 @@ export const project: Field = {
       ],
     },
     {
+      name: 'comments',
+      type: 'textarea',
+      label: 'Comentário do Cliente',
+      localized: true,
+      admin: {
+        readOnly: true,
+        placeholder: 'Título do projeto',
+      },
+    },
+    {
       name: 'file',
       type: 'upload',
       relationTo: 'media',

@@ -54,9 +54,11 @@ export interface Organization {
  */
 export interface Customer {
   id: string;
-  name?: string | null;
+  name: string;
+  phone_number?: string | null;
+  social_media?: string | null;
   works?: (string | Work)[] | null;
-  organization?: (string | null) | Organization;
+  organization: string | Organization;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -93,7 +95,7 @@ export interface Work {
           address: string;
           professional_name: string;
           profession?: string | null;
-          contact_number?: string | null;
+          contact_number: string;
           contact_email?: string | null;
           instagram?: string | null;
         };
@@ -106,6 +108,7 @@ export interface Work {
           title: string;
           status: 'pending' | 'approved' | 'archived';
           type: 'executive' | 'wood_detailing' | 'wet_spaces_detailing';
+          comments?: string | null;
           file: string | Media;
         };
         id?: string | null;

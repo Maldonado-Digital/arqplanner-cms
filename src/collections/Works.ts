@@ -35,7 +35,14 @@ export const Works: CollectionConfig = {
 
         const newProjects = work.projects.map(data => {
           if (data.id === req.params.project_id) {
-            data = { ...data, project: { ...data.project, status: req.body.status } }
+            data = {
+              ...data,
+              project: {
+                ...data.project,
+                status: req.body.status,
+                comments: req.body.comments,
+              },
+            }
           }
 
           if (typeof data.project.file === 'object') {
