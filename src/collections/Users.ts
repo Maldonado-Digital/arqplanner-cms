@@ -6,6 +6,7 @@ export const Users: CollectionConfig = {
   slug: 'users',
   auth: {
     depth: 0,
+    maxLoginAttempts: 5,
   },
   labels: {
     plural: {
