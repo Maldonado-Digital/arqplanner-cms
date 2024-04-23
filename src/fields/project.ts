@@ -69,7 +69,7 @@ export const project: Field = {
       localized: true,
       admin: {
         readOnly: true,
-        placeholder: 'Título do projeto',
+        placeholder: 'Comentário do cliente ao aprovar ou rejeitar o projeto.',
       },
     },
     {

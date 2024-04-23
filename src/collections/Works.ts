@@ -13,6 +13,7 @@ import { step } from '../fields/step'
 
 export const Works: CollectionConfig = {
   slug: 'works',
+  defaultSort: '-createdAt',
   labels: {
     plural: 'Trabalhos',
     singular: 'Trabalho',

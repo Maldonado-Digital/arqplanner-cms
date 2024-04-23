@@ -2,6 +2,8 @@ import type { CollectionConfig } from 'payload/types'
 import { isAdminFieldLevel } from '../access/isAdmin'
 import { isAdminOrEditorFieldLevel } from '../access/isAdminOrEditor'
 import { isAdminOrIsFromSameOrg } from '../access/isAdminOrIsFromSameOrg'
+import { sanitizeFileName } from '../hooks/sanitizeFileName'
+import { validateFileExtension } from '../hooks/validateFileExtension'
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -26,8 +28,7 @@ export const Media: CollectionConfig = {
     staticURL: '/media',
     staticDir: 'media',
     adminThumbnail: 'thumbnail',
-    // mimeTypes: ['image/*', 'application/pdf', 'application/acad', '.dwg'],
-    mimeTypes: ['image/*', 'application/pdf'],
+    // mimeTypes: ['image/*', 'application/pdf', 'application/octet-stream'],
   },
   fields: [
     {
@@ -51,4 +52,7 @@ export const Media: CollectionConfig = {
       // },
     },
   ],
+  hooks: {
+    beforeValidate: [validateFileExtension, sanitizeFileName],
+  },
 }
