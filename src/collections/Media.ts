@@ -27,9 +27,25 @@ export const Media: CollectionConfig = {
   upload: {
     staticURL: '/media',
     staticDir: 'media',
+    imageSizes: [
+      {
+        name: 'thumbnail',
+        width: 400,
+        height: 300,
+        position: 'centre',
+      },
+    ],
     adminThumbnail: 'thumbnail',
+    // adminThumbnail: ({ doc }) => {
+    //   if (doc.mimeType === 'application/pdf') {
+    //     return 'https://img.icons8.com/?size=128&id=36925&format=png&'
+    //   }
+
+    //   return `${doc.filename}`
+    // },
     // mimeTypes: ['image/*', 'application/pdf', 'application/octet-stream'],
   },
+
   fields: [
     {
       name: 'organization',

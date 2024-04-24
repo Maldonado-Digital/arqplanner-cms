@@ -37,6 +37,16 @@ export const render: Field = {
       ],
     },
     {
+      name: 'comments',
+      type: 'textarea',
+      label: 'Comentário do Cliente',
+      localized: true,
+      admin: {
+        readOnly: true,
+        placeholder: 'Comentário do cliente ao aprovar ou rejeitar o projeto.',
+      },
+    },
+    {
       name: 'files',
       localized: true,
       label: 'Arquivos',

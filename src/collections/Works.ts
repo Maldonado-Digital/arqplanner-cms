@@ -3,6 +3,8 @@ import { isAdminFieldLevel } from '../access/isAdmin'
 import { isAdminOrEditorFieldLevel } from '../access/isAdminOrEditor'
 import { isAdminOrIsFromSameOrg } from '../access/isAdminOrIsFromSameOrg'
 import { isAdminSelfOrSameOrg } from '../access/isAdminSelfOrSameOrg'
+import { resolveProject } from '../endpoints/resolveProject'
+import { resolveRender } from '../endpoints/resolveRender'
 import { document } from '../fields/document'
 import { event } from '../fields/event'
 import { photo } from '../fields/photo'
@@ -23,48 +25,7 @@ export const Works: CollectionConfig = {
     defaultColumns: ['title', 'steps', 'events', 'projects', 'documents', 'quotes'],
     // hideAPIURL: true,
   },
-  endpoints: [
-    {
-      path: '/:id/resolve-project/:project_id',
-      method: 'patch',
-      handler: async (req, res) => {
-        const work = await req.payload.findByID({
-          collection: 'works',
-          id: req.params.id,
-          depth: 1,
-        })
-
-        const newProjects = work.projects.map(data => {
-          if (data.id === req.params.project_id) {
-            data = {
-              ...data,
-              project: {
-                ...data.project,
-                status: req.body.status,
-                comments: req.body.comments,
-              },
-            }
-          }
-
-          if (typeof data.project.file === 'object') {
-            return { ...data, project: { ...data.project, file: data.project.file.id } }
-          }
-          return data
-        })
-
-        const updated = await req.payload.update({
-          collection: 'works',
-          id: req.params.id,
-          data: {
-            projects: newProjects,
-          },
-          depth: 1,
-        })
-
-        res.status(200).send({ work: updated })
-      },
-    },
-  ],
+  endpoints: [resolveProject, resolveRender],
   // access: {
   // read: isAdminSelfOrSameOrg,
   // update: isAdminOrIsFromSameOrg(),
