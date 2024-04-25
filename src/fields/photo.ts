@@ -4,7 +4,7 @@ export const photo: Field = {
   name: 'photo',
   type: 'group',
   localized: true,
-  label: 'Coleção',
+  label: 'Álbum',
   fields: [
     {
       name: 'title',

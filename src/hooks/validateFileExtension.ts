@@ -7,7 +7,6 @@ export const validateFileExtension: CollectionBeforeValidateHook = async ({
   operation, // name of the operation ie. 'create', 'update'
 }) => {
   const mimeType = data.mimeType as string
-
   if (mimeType.startsWith('image/')) return data
   if (mimeType === 'application/pdf') return data
 

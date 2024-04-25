@@ -1,7 +1,9 @@
+import localForgotPassword from 'payload/dist/auth/operations/local/forgotPassword'
 import type { CollectionConfig } from 'payload/types'
 import { isAdminFieldLevel } from '../access/isAdmin'
 import { isAdminOrEditor, isAdminOrEditorFieldLevel } from '../access/isAdminOrEditor'
 import { isAdminSelfOrSameOrg } from '../access/isAdminSelfOrSameOrg'
+import { forgotPasswordFormatData } from '../hooks/forgotPasswordFormatData'
 export const Customers: CollectionConfig = {
   slug: 'customers',
   auth: {
@@ -30,6 +32,9 @@ export const Customers: CollectionConfig = {
     // update: isAdminSelfOrSameOrg,
     // // Only admins can delete
     // delete: isAdminSelfOrSameOrg,
+  },
+  hooks: {
+    beforeValidate: [forgotPasswordFormatData],
   },
   fields: [
     // Email added by default

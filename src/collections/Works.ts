@@ -75,13 +75,24 @@ export const Works: CollectionConfig = {
       fields: [project],
     },
     {
+      name: 'photos',
+      type: 'array',
+      localized: true,
+      label: 'Fotos',
+      labels: {
+        singular: 'Álbum',
+        plural: 'Álbuns',
+      },
+      fields: [photo],
+    },
+    {
       name: 'renders',
       type: 'array',
       localized: true,
       label: 'Imagens 3D',
       labels: {
-        singular: 'Imagem 3D',
-        plural: 'Imagens 3D',
+        singular: 'Álbum',
+        plural: 'Álbuns',
       },
       fields: [render],
     },
@@ -95,17 +106,6 @@ export const Works: CollectionConfig = {
         plural: 'Documentos',
       },
       fields: [document],
-    },
-    {
-      name: 'photos',
-      type: 'array',
-      localized: true,
-      label: 'Fotos',
-      labels: {
-        singular: 'Foto',
-        plural: 'Fotos',
-      },
-      fields: [photo],
     },
     {
       name: 'quotes',
