@@ -10,5 +10,5 @@ export const setCreatedBy: CollectionBeforeChangeHook = async ({
     data.organization = req.user.organization
   }
 
-  return data // Return data to either create or update a document with
+  return data // Return data to either create or update a document wit
 }
