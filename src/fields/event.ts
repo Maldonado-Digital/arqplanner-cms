@@ -61,15 +61,6 @@ export const event: Field = {
       },
     },
     {
-      name: 'profession',
-      type: 'text',
-      label: 'Profissão',
-      localized: true,
-      admin: {
-        placeholder: 'Profissão',
-      },
-    },
-    {
       name: 'contact_number',
       type: 'text',
       label: 'Telefone de Contato',
@@ -77,6 +68,15 @@ export const event: Field = {
       localized: true,
       admin: {
         placeholder: '(99) 99999-9999',
+      },
+    },
+    {
+      name: 'profession',
+      type: 'text',
+      label: 'Profissão',
+      localized: true,
+      admin: {
+        placeholder: 'Profissão',
       },
     },
     {
