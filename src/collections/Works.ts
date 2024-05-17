@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import { isAdminFieldLevel } from '../access/isAdmin'
 import { isAdminOrEditorFieldLevel } from '../access/isAdminOrEditor'
+import { isAdminOrEditorFromSameOrg } from '../access/isAdminOrEditorFromSameOrg'
 import { isAdminOrIsFromSameOrg } from '../access/isAdminOrIsFromSameOrg'
 import { isAdminSelfOrSameOrg } from '../access/isAdminSelfOrSameOrg'
 import { resolveProject } from '../endpoints/resolveProject'
@@ -23,14 +24,15 @@ export const Works: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'steps', 'events', 'projects', 'documents', 'quotes'],
-    // hideAPIURL: true,
+    hideAPIURL: true,
   },
   endpoints: [resolveProject, resolveRender],
-  // access: {
-  // read: isAdminSelfOrSameOrg,
-  // update: isAdminOrIsFromSameOrg(),
-  // delete: isAdminOrIsFromSameOrg(),
-  // },
+  access: {
+    read: isAdminSelfOrSameOrg,
+    create: isAdminOrEditorFromSameOrg,
+    update: isAdminOrEditorFromSameOrg,
+    delete: isAdminOrEditorFromSameOrg,
+  },
   fields: [
     {
       name: 'title',
@@ -124,6 +126,7 @@ export const Works: CollectionConfig = {
       relationTo: 'organizations',
       label: 'Escritório',
       hasMany: false,
+      required: true,
       defaultValue: ({ user }) => {
         if (user.role === 'editor' && user.organization) {
           return user.organization

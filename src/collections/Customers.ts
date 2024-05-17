@@ -9,6 +9,7 @@ export const Customers: CollectionConfig = {
   auth: {
     depth: 0,
     maxLoginAttempts: 5,
+    tokenExpiration: 60 * 60 * 24 * 30, // 30 days lifetime
   },
   labels: {
     plural: {
@@ -27,7 +28,7 @@ export const Customers: CollectionConfig = {
     // Only admins can create users
     create: isAdminOrEditor,
     // // Admins can read all, but any other logged in user can only read themselves
-    // read: isAdminSelfOrSameOrg,
+    read: isAdminSelfOrSameOrg,
     // // Admins can update all, but any other logged in user can only update themselves
     // update: isAdminSelfOrSameOrg,
     // // Only admins can delete

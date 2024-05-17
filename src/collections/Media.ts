@@ -1,8 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import { isAdminFieldLevel } from '../access/isAdmin'
-import { isAdminOrEditorFieldLevel } from '../access/isAdminOrEditor'
-import { isAdminOrIsFromSameOrg } from '../access/isAdminOrIsFromSameOrg'
-import { sanitizeFileName } from '../hooks/sanitizeFileName'
+import { isAdminOrEditorFromSameOrg } from '../access/isAdminOrEditorFromSameOrg'
+import { isAdminSelfOrSameOrg } from '../access/isAdminSelfOrSameOrg'
 import { validateFileExtension } from '../hooks/validateFileExtension'
 
 export const Media: CollectionConfig = {
@@ -18,12 +17,12 @@ export const Media: CollectionConfig = {
   admin: {
     hideAPIURL: true,
   },
-  // access: {
-  //   read: isAdminOrIsFromSameOrg(),
-  //   create: isAdminOrIsFromSameOrg(),
-  //   update: isAdminOrIsFromSameOrg(),
-  //   delete: isAdminOrIsFromSameOrg(),
-  // },
+  access: {
+    read: isAdminSelfOrSameOrg,
+    create: isAdminOrEditorFromSameOrg,
+    update: isAdminOrEditorFromSameOrg,
+    delete: isAdminOrEditorFromSameOrg,
+  },
   upload: {
     staticURL: '/media',
     staticDir: 'media',
@@ -59,16 +58,12 @@ export const Media: CollectionConfig = {
         }
       },
       access: {
-        // read: isAdminSelfOrSameOrg,
         create: isAdminFieldLevel,
         update: isAdminFieldLevel,
       },
-      // admin: {
-      //   hidden: true,
-      // },
     },
   ],
   hooks: {
-    beforeValidate: [validateFileExtension, sanitizeFileName],
+    beforeValidate: [validateFileExtension],
   },
 }

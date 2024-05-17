@@ -1,8 +1,12 @@
+// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
+import path from 'path'
 import express from 'express'
 import payload from 'payload'
 
 require('dotenv').config()
 const app = express()
+
+app.use('/assets', express.static(path.resolve(__dirname, './assets')))
 
 // Redirect root to Admin panel
 app.get('/', (_, res) => {

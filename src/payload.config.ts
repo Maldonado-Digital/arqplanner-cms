@@ -1,7 +1,7 @@
+// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
 import path from 'path'
 
 import { webpackBundler } from '@payloadcms/bundler-webpack'
-// import { postgresAdapter } from '@payloadcms/db-postgres'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { payloadCloud } from '@payloadcms/plugin-cloud'
 import { slateEditor } from '@payloadcms/richtext-slate'
@@ -28,6 +28,7 @@ export default buildConfig({
     },
     meta: {
       titleSuffix: '- ArqPlanner',
+      favicon: '/assets/favicon.png',
     },
   },
   editor: slateEditor({}),

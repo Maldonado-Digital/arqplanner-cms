@@ -1,5 +1,5 @@
-import { Access, FieldAccess } from 'payload/types'
-import { User } from '../payload-types'
+import type { Access, FieldAccess } from 'payload/types'
+import type { User } from '../payload-types'
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const isAdmin: Access<any, User> = ({ req: { user } }) => {

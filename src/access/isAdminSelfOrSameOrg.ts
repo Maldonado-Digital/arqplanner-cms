@@ -11,7 +11,6 @@ export const isAdminSelfOrSameOrg: Access = ({ req: { user } }) => {
     // return a query constraint to restrict the documents this user can edit
     // to only those that are assigned to a site, or have no site assigned
     if (user.role === 'editor' && user.organization) {
-      // Otherwise, we can restrict it based on the `site` field
       return {
         organization: {
           equals: user.organization,
@@ -19,6 +18,7 @@ export const isAdminSelfOrSameOrg: Access = ({ req: { user } }) => {
       }
     }
 
+    // If user is a customer
     if (!user.role && user.organization) {
       return {
         organization: {
