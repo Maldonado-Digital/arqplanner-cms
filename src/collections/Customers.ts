@@ -65,6 +65,7 @@ export const Customers: CollectionConfig = {
       type: 'relationship',
       relationTo: 'works',
       label: 'Trabalhos',
+      required: true,
       hasMany: true,
       access: {
         // Only admins can create or update a value for this field

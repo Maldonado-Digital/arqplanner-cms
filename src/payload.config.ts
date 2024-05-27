@@ -12,8 +12,9 @@ import { Media } from './collections/Media'
 import { Organizations } from './collections/Organizations'
 import { Users } from './collections/Users'
 import { Works } from './collections/Works'
-import SvgIcon from './graphics/Icon'
-import SvgLogo from './graphics/Logo'
+
+import IconSvgBeta from './graphics/IconSvgBeta'
+import LogoSvgBeta from './graphics/LogoSvgBeta'
 
 export default buildConfig({
   admin: {
@@ -22,12 +23,12 @@ export default buildConfig({
     bundler: webpackBundler(),
     components: {
       graphics: {
-        Icon: SvgIcon,
-        Logo: SvgLogo,
+        Icon: IconSvgBeta,
+        Logo: LogoSvgBeta,
       },
     },
     meta: {
-      titleSuffix: '- ArqPlanner',
+      titleSuffix: '- ArqPlanner BETA',
       favicon: '/assets/favicon.png',
     },
   },

@@ -1,6 +1,5 @@
-// biome-ignore lint/nursery/noUnusedImports: <explanation>
 import React from 'react'
-import { SVGProps } from 'react'
+import type { SVGProps } from 'react'
 const SvgLogo = (props: SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={180} height={30} fill="none" {...props}>
     <title>ArqPlanner Logo</title>
