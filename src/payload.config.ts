@@ -17,6 +17,7 @@ import IconSvgBeta from './graphics/IconSvgBeta'
 import LogoSvgBeta from './graphics/LogoSvgBeta'
 
 export default buildConfig({
+  serverURL: 'https://admin.arqplanner.com',
   admin: {
     user: Users.slug,
     dateFormat: 'dd/MM/yyyy',
