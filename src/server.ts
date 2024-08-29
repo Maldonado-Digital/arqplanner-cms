@@ -21,11 +21,11 @@ const start = async () => {
     onInit: async () => {
       payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`)
     },
-    email: {
-      fromName: 'ArqPlanner',
-      fromAddress: 'suporte@arqplanner.com',
-      logMockCredentials: true,
-    },
+    // email: {
+    //   fromName: 'ArqPlanner',
+    //   fromAddress: 'suporte@arqplanner.com',
+    //   logMockCredentials: true,
+    // },
   })
 
   // Add your own express routes here
