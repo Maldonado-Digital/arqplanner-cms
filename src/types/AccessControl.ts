@@ -13,7 +13,7 @@ export const ACCESS_CONTROL_OPTIONS: Option[] = [
     label: 'Arquiteto',
     value: 'editor',
   },
-] as const
+]
 
 export const defaultRole = {
   label: 'Arquiteto',
