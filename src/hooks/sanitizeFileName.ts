@@ -1,4 +1,3 @@
-import { APIError } from 'payload/errors'
 import type { CollectionBeforeValidateHook } from 'payload/types'
 
 export const sanitizeFileName: CollectionBeforeValidateHook = async ({

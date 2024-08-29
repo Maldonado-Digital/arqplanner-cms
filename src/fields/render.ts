@@ -1,4 +1,5 @@
 import type { Field } from 'payload/types'
+import { addWorkToMediaFieldHook } from '../hooks/addWorkToMedia'
 
 export const render: Field = {
   name: 'render',
@@ -63,6 +64,9 @@ export const render: Field = {
           label: 'Arquivo',
           localized: true,
           required: true,
+          hooks: {
+            beforeValidate: [addWorkToMediaFieldHook],
+          },
         },
       ],
     },

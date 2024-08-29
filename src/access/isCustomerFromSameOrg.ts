@@ -1,4 +1,4 @@
-import { Access } from 'payload/config'
+import type { Access } from 'payload/config'
 
 export const isCustomerFromSameOrg: Access = ({ req: { user } }) => {
   // Need to be logged in

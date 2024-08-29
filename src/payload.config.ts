@@ -17,7 +17,7 @@ import IconSvgBeta from './graphics/IconSvgBeta'
 import LogoSvgBeta from './graphics/LogoSvgBeta'
 
 export default buildConfig({
-  serverURL: 'https://admin.arqplanner.com',
+  serverURL: process.env.SERVER_URL || '',
   admin: {
     user: Users.slug,
     dateFormat: 'dd/MM/yyyy',
@@ -56,14 +56,7 @@ export default buildConfig({
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
   },
   plugins: [payloadCloud()],
-  // db: postgresAdapter({
-  //   pool: {
-  //     connectionString: process.env.DATABASE_URI,
-  //   },
-  // }),
   db: mongooseAdapter({
-    // Mongoose-specific arguments go here.
-    // URL is required.
     url: process.env.DATABASE_URI,
   }),
 })

@@ -21,9 +21,19 @@ export const isAdminSelfOrSameOrg: Access = ({ req: { user } }) => {
     // If user is a customer
     if (!user.role && user.organization) {
       return {
-        organization: {
-          equals: user.organization?.id ? user.organization?.id : user.organization,
-        },
+        and: [
+          {
+            organization: {
+              // if organization is an object, extract ID. Otherwise it is the string ID
+              equals: user.organization?.id ? user.organization?.id : user.organization,
+            },
+          },
+          {
+            id: {
+              in: user.works,
+            },
+          },
+        ],
       }
     }
   }

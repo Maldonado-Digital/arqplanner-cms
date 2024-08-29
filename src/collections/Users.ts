@@ -1,6 +1,10 @@
 import type { CollectionConfig } from 'payload/types'
-import { isAdmin, isAdminFieldLevel } from '../access/isAdmin'
-import { isAdminOrSelf } from '../access/isAdminOrSelf'
+import { createUsersAccessControl } from '../access/CreateUsers'
+import { deleteUsersAccessControl } from '../access/DeleteUsers'
+import { readUsersAccessControl } from '../access/ReadUsers'
+import { updateUsersAccessControl } from '../access/UpdateUsers'
+import { isAdminOrSuperAdminFieldLevel, isSuperAdminFieldLevel } from '../access/isAdmin'
+import { ACCESS_CONTROL_OPTIONS, defaultRole } from '../types/AccessControl'
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -19,48 +23,21 @@ export const Users: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'email', 'role', 'organization'],
-    hidden: ({ user }) => user?.role !== 'admin',
+    hidden: ({ user }) => user?.role === 'editor',
+    hideAPIURL: false,
   },
   access: {
-    // Only admins can create users
-    create: isAdmin,
-    // Admins can read all, but any other logged in user can only read themselves
-    read: isAdminOrSelf,
-    // Admins can update all, but any other logged in user can only update themselves
-    update: isAdminOrSelf,
-    // Only admins can delete
-    delete: isAdmin,
+    read: readUsersAccessControl,
+    create: createUsersAccessControl,
+    update: updateUsersAccessControl,
+    delete: deleteUsersAccessControl,
   },
   fields: [
-    // Email added by default
-    // Add more fields as needed
     {
       name: 'name',
       type: 'text',
       label: 'Nome',
       localized: true,
-    },
-    {
-      name: 'role',
-      type: 'select',
-      label: 'Nível de acesso',
-      saveToJWT: true,
-      hasMany: false,
-      access: {
-        // Only admins can create or update a value for this field
-        create: isAdminFieldLevel,
-        update: isAdminFieldLevel,
-      },
-      options: [
-        {
-          label: 'Admin',
-          value: 'admin',
-        },
-        {
-          label: 'Editor',
-          value: 'editor',
-        },
-      ],
     },
     {
       name: 'organization',
@@ -70,13 +47,25 @@ export const Users: CollectionConfig = {
       label: 'Escritório',
       hasMany: false,
       access: {
-        // Only admins can create or update a value for this field
-        create: isAdminFieldLevel,
-        update: isAdminFieldLevel,
+        create: isAdminOrSuperAdminFieldLevel,
+        update: isAdminOrSuperAdminFieldLevel,
       },
       admin: {
         condition: ({ role }) => role === 'editor',
       },
+    },
+    {
+      name: 'role',
+      type: 'select',
+      label: 'Nível de acesso',
+      saveToJWT: true,
+      hasMany: false,
+      defaultValue: defaultRole.value,
+      access: {
+        create: isSuperAdminFieldLevel,
+        update: isSuperAdminFieldLevel,
+      },
+      options: ACCESS_CONTROL_OPTIONS,
     },
   ],
 }

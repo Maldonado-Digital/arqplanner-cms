@@ -1,9 +1,13 @@
-import localForgotPassword from 'payload/dist/auth/operations/local/forgotPassword'
 import type { CollectionConfig } from 'payload/types'
-import { isAdminFieldLevel } from '../access/isAdmin'
-import { isAdminOrEditor, isAdminOrEditorFieldLevel } from '../access/isAdminOrEditor'
-import { isAdminSelfOrSameOrg } from '../access/isAdminSelfOrSameOrg'
+import { createCustomersAccessControl } from '../access/CreateCustomers'
+import { deleteCustomersAccessControl } from '../access/DeleteCustomers'
+import { readCustomersAccessControl } from '../access/ReadCustomers'
+import { updateCustomersAccessControl } from '../access/UpdateCustomers'
+import { isAdminOrSuperAdminFieldLevel } from '../access/isAdmin'
+import { isAdminOrEditorFieldLevel } from '../access/isAdminOrEditor'
 import { forgotPasswordFormatData } from '../hooks/forgotPasswordFormatData'
+import { getCustomerOrgDefaultValue } from '../utils/defaultValues'
+
 export const Customers: CollectionConfig = {
   slug: 'customers',
   auth: {
@@ -22,23 +26,18 @@ export const Customers: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'email', 'role', 'organization', 'works'],
-    // hideAPIURL: true,
+    hideAPIURL: true,
   },
   access: {
-    // Only admins can create users
-    create: isAdminOrEditor,
-    // // Admins can read all, but any other logged in user can only read themselves
-    read: isAdminSelfOrSameOrg,
-    // // Admins can update all, but any other logged in user can only update themselves
-    // update: isAdminSelfOrSameOrg,
-    // // Only admins can delete
-    // delete: isAdminSelfOrSameOrg,
+    create: createCustomersAccessControl,
+    read: readCustomersAccessControl,
+    update: updateCustomersAccessControl,
+    delete: deleteCustomersAccessControl,
   },
   hooks: {
     beforeValidate: [forgotPasswordFormatData],
   },
   fields: [
-    // Email added by default
     {
       name: 'name',
       required: true,
@@ -80,14 +79,10 @@ export const Customers: CollectionConfig = {
       saveToJWT: true,
       label: 'Escritório',
       hasMany: false,
-      defaultValue: ({ user }) => {
-        if (user.role === 'editor' && user.organization) {
-          return user.organization
-        }
-      },
+      defaultValue: getCustomerOrgDefaultValue,
       access: {
-        create: isAdminFieldLevel,
-        update: isAdminFieldLevel,
+        create: isAdminOrSuperAdminFieldLevel,
+        update: isAdminOrSuperAdminFieldLevel,
       },
     },
   ],

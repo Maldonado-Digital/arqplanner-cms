@@ -12,7 +12,7 @@ export const resolveProject: Omit<Endpoint, 'root'> = {
 
     if (!work) return res.status(400).send({ work: null, errors: ['Work not found.'] })
 
-    if (req.user?.works?.includes(work.id)) {
+    if (!req.user?.works?.includes(work.id)) {
       return res.status(403).send({
         work: null,
         errors: ["You don't have permission to perform this action."],

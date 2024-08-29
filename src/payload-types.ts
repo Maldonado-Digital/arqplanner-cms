@@ -25,8 +25,8 @@ export interface Config {
 export interface User {
   id: string;
   name?: string | null;
-  role?: ('admin' | 'editor') | null;
   organization?: (string | null) | Organization;
+  role?: ('super_admin' | 'admin' | 'editor') | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -57,7 +57,7 @@ export interface Customer {
   name: string;
   phone_number?: string | null;
   social_media?: string | null;
-  works?: (string | Work)[] | null;
+  works: (string | Work)[];
   organization: string | Organization;
   updatedAt: string;
   createdAt: string;
@@ -76,7 +76,7 @@ export interface Customer {
  */
 export interface Work {
   id: string;
-  title?: string | null;
+  title: string;
   steps?:
     | {
         step: {
@@ -94,8 +94,8 @@ export interface Work {
           date: string;
           address: string;
           professional_name: string;
-          profession?: string | null;
           contact_number: string;
+          profession?: string | null;
           contact_email?: string | null;
           instagram?: string | null;
         };
@@ -110,6 +110,20 @@ export interface Work {
           type: 'executive' | 'wood_detailing' | 'wet_spaces_detailing';
           comments?: string | null;
           file: string | Media;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  photos?:
+    | {
+        photo: {
+          title: string;
+          files?:
+            | {
+                uploads: string | Media;
+                id?: string | null;
+              }[]
+            | null;
         };
         id?: string | null;
       }[]
@@ -140,20 +154,6 @@ export interface Work {
         id?: string | null;
       }[]
     | null;
-  photos?:
-    | {
-        photo: {
-          title: string;
-          files?:
-            | {
-                uploads: string | Media;
-                id?: string | null;
-              }[]
-            | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
   quotes?:
     | {
         quote: {
@@ -163,7 +163,7 @@ export interface Work {
         id?: string | null;
       }[]
     | null;
-  organization?: (string | null) | Organization;
+  organization: string | Organization;
   updatedAt: string;
   createdAt: string;
 }
@@ -174,6 +174,7 @@ export interface Work {
 export interface Media {
   id: string;
   organization?: (string | null) | Organization;
+  works?: (string | Work)[] | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;

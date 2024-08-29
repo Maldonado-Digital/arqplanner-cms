@@ -1,8 +1,16 @@
 import type { CollectionConfig } from 'payload/types'
-import { isAdminFieldLevel } from '../access/isAdmin'
-import { isAdminOrEditorFromSameOrg } from '../access/isAdminOrEditorFromSameOrg'
-import { isAdminSelfOrSameOrg } from '../access/isAdminSelfOrSameOrg'
+import { createMediaAccessControl } from '../access/CreateMedia'
+import { deleteMediaAccessControl } from '../access/DeleteMedia'
+import { readMediaAccessControl } from '../access/ReadMedia'
+import { updateMediaAccessControl } from '../access/UpdateMedia'
+import { isAdminOrSuperAdminFieldLevel } from '../access/isAdmin'
+import { initializeWorksArray } from '../hooks/addWorkToMedia'
 import { validateFileExtension } from '../hooks/validateFileExtension'
+import {
+  filterMediaWorkOptions,
+  getMediaOrgDefaultValue,
+  getMediaWorkDefaultValue,
+} from '../utils/defaultValues'
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -15,13 +23,15 @@ export const Media: CollectionConfig = {
     },
   },
   admin: {
+    useAsTitle: 'filename',
+    defaultColumns: ['filename', 'id', 'createdAt', 'updatedAt', 'mimeType', 'works'],
     hideAPIURL: true,
   },
   access: {
-    read: isAdminSelfOrSameOrg,
-    create: isAdminOrEditorFromSameOrg,
-    update: isAdminOrEditorFromSameOrg,
-    delete: isAdminOrEditorFromSameOrg,
+    read: readMediaAccessControl,
+    create: createMediaAccessControl,
+    update: updateMediaAccessControl,
+    delete: deleteMediaAccessControl,
   },
   upload: {
     staticURL: '/media',
@@ -34,17 +44,7 @@ export const Media: CollectionConfig = {
         position: 'centre',
       },
     ],
-    adminThumbnail: 'thumbnail',
-    // adminThumbnail: ({ doc }) => {
-    //   if (doc.mimeType === 'application/pdf') {
-    //     return 'https://img.icons8.com/?size=128&id=36925&format=png&'
-    //   }
-
-    //   return `${doc.filename}`
-    // },
-    // mimeTypes: ['image/*', 'application/pdf', 'application/octet-stream'],
   },
-
   fields: [
     {
       name: 'organization',
@@ -52,18 +52,31 @@ export const Media: CollectionConfig = {
       relationTo: 'organizations',
       label: 'Escritório',
       hasMany: false,
-      defaultValue: ({ user }) => {
-        if (user.role === 'editor' && user.organization) {
-          return user.organization
-        }
+      defaultValue: getMediaOrgDefaultValue,
+      access: {
+        create: isAdminOrSuperAdminFieldLevel,
+        update: isAdminOrSuperAdminFieldLevel,
+      },
+    },
+    {
+      name: 'works',
+      type: 'relationship',
+      relationTo: 'works',
+      label: 'Trabalhos',
+      hasMany: true,
+      defaultValue: getMediaWorkDefaultValue,
+      filterOptions: filterMediaWorkOptions,
+      admin: {
+        allowCreate: false,
       },
       access: {
-        create: isAdminFieldLevel,
-        update: isAdminFieldLevel,
+        create: isAdminOrSuperAdminFieldLevel,
+        update: isAdminOrSuperAdminFieldLevel,
       },
     },
   ],
   hooks: {
+    beforeChange: [initializeWorksArray],
     beforeValidate: [validateFileExtension],
   },
 }

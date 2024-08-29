@@ -1,13 +1,16 @@
 import type { Access } from 'payload/config'
-import { AccessTypes } from '../types/AccessTypes'
+import type { AccessControlType } from '../types/AccessControl'
 
 export const allow =
-  (allowedRoles: AccessTypes[] = [AccessTypes.Admin]): Access =>
+  (allowedRoles: AccessControlType[]): Access =>
   ({ req: { user } }) => {
     // Need to be logged in
     if (!user) return false
 
-    console.log(user)
+    // AllAdmins
+    if (allowedRoles.includes('all-admins')) {
+      return user.role === 'admin'
+    }
 
     // Always allow admin
     if (user.role === 'admin') return true

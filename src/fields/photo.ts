@@ -1,4 +1,5 @@
 import type { Field } from 'payload/types'
+import { addWorkToMediaFieldHook } from '../hooks/addWorkToMedia'
 
 export const photo: Field = {
   name: 'photo',
@@ -30,12 +31,9 @@ export const photo: Field = {
           label: 'Arquivo',
           localized: true,
           required: true,
-          // filterOptions: ({ user }) => {
-          //   console.log('user', user)
-          //   return {
-          //     organization: { equals: user.organization },
-          //   }
-          // },
+          hooks: {
+            beforeValidate: [addWorkToMediaFieldHook],
+          },
         },
       ],
     },

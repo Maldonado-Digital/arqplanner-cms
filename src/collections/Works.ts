@@ -1,9 +1,9 @@
 import type { CollectionConfig } from 'payload/types'
-import { isAdminFieldLevel } from '../access/isAdmin'
-import { isAdminOrEditorFieldLevel } from '../access/isAdminOrEditor'
-import { isAdminOrEditorFromSameOrg } from '../access/isAdminOrEditorFromSameOrg'
-import { isAdminOrIsFromSameOrg } from '../access/isAdminOrIsFromSameOrg'
-import { isAdminSelfOrSameOrg } from '../access/isAdminSelfOrSameOrg'
+import { createWorksAccessControl } from '../access/CreateWorks'
+import { deleteWorksAccessControl } from '../access/DeleteWorks'
+import { readWorksAccessControl } from '../access/ReadWorks'
+import { updateWorksAccessControl } from '../access/UpdateWorks'
+import { isAdminOrSuperAdminFieldLevel } from '../access/isAdmin'
 import { resolveProject } from '../endpoints/resolveProject'
 import { resolveRender } from '../endpoints/resolveRender'
 import { document } from '../fields/document'
@@ -28,10 +28,10 @@ export const Works: CollectionConfig = {
   },
   endpoints: [resolveProject, resolveRender],
   access: {
-    read: isAdminSelfOrSameOrg,
-    create: isAdminOrEditorFromSameOrg,
-    update: isAdminOrEditorFromSameOrg,
-    delete: isAdminOrEditorFromSameOrg,
+    read: readWorksAccessControl,
+    create: createWorksAccessControl,
+    update: updateWorksAccessControl,
+    delete: deleteWorksAccessControl,
   },
   fields: [
     {
@@ -39,6 +39,7 @@ export const Works: CollectionConfig = {
       type: 'text',
       label: 'Título',
       localized: true,
+      required: true,
       admin: {
         placeholder: 'Título do trabalho',
       },
@@ -52,6 +53,9 @@ export const Works: CollectionConfig = {
         singular: 'Etapa',
         plural: 'Etapas',
       },
+      admin: {
+        condition: ({ id }) => !!id,
+      },
       fields: [step],
     },
     {
@@ -62,6 +66,9 @@ export const Works: CollectionConfig = {
       labels: {
         singular: 'Compromisso',
         plural: 'Agenda',
+      },
+      admin: {
+        condition: ({ id }) => !!id,
       },
       fields: [event],
     },
@@ -74,6 +81,9 @@ export const Works: CollectionConfig = {
         singular: 'Projeto',
         plural: 'Projetos',
       },
+      admin: {
+        condition: ({ id }) => !!id,
+      },
       fields: [project],
     },
     {
@@ -84,6 +94,9 @@ export const Works: CollectionConfig = {
       labels: {
         singular: 'Álbum',
         plural: 'Álbuns',
+      },
+      admin: {
+        condition: ({ id }) => !!id,
       },
       fields: [photo],
     },
@@ -96,6 +109,9 @@ export const Works: CollectionConfig = {
         singular: 'Álbum',
         plural: 'Álbuns',
       },
+      admin: {
+        condition: ({ id }) => !!id,
+      },
       fields: [render],
     },
     {
@@ -107,6 +123,9 @@ export const Works: CollectionConfig = {
         singular: 'Documento',
         plural: 'Documentos',
       },
+      admin: {
+        condition: ({ id }) => !!id,
+      },
       fields: [document],
     },
     {
@@ -117,6 +136,9 @@ export const Works: CollectionConfig = {
       labels: {
         singular: 'Orçamento',
         plural: 'Orçamentos',
+      },
+      admin: {
+        condition: ({ id }) => !!id,
       },
       fields: [quote],
     },
@@ -133,13 +155,9 @@ export const Works: CollectionConfig = {
         }
       },
       access: {
-        // read: isAdminOrEditorFieldLevel,
-        create: isAdminFieldLevel,
-        update: isAdminFieldLevel,
+        create: isAdminOrSuperAdminFieldLevel,
+        update: isAdminOrSuperAdminFieldLevel,
       },
-      // admin: {
-      //   hidden: true,
-      // },
     },
   ],
 }

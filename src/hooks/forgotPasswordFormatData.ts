@@ -1,11 +1,10 @@
 import type { CollectionBeforeChangeHook } from 'payload/types'
 
 export const forgotPasswordFormatData: CollectionBeforeChangeHook = async ({
-  data, // incoming data to update or create with
-  req, // full express request
-  operation, // name of the operation ie. 'create', 'update'
-  originalDoc, // original document
-  context,
+  data,
+  req,
+  operation,
+  originalDoc,
 }) => {
   console.log('data', data)
   console.log('originalDoc', originalDoc)

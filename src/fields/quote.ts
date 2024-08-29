@@ -1,4 +1,5 @@
 import type { Field } from 'payload/types'
+import { addWorkToMediaFieldHook } from '../hooks/addWorkToMedia'
 
 export const quote: Field = {
   name: 'quote',
@@ -23,6 +24,9 @@ export const quote: Field = {
       label: 'Arquivo',
       localized: true,
       required: true,
+      hooks: {
+        beforeValidate: [addWorkToMediaFieldHook],
+      },
     },
   ],
 }
