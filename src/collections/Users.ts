@@ -40,6 +40,19 @@ export const Users: CollectionConfig = {
       localized: true,
     },
     {
+      name: 'role',
+      type: 'select',
+      label: 'Nível de acesso',
+      saveToJWT: true,
+      hasMany: false,
+      defaultValue: defaultRole.value,
+      access: {
+        create: isSuperAdminFieldLevel,
+        update: isSuperAdminFieldLevel,
+      },
+      options: ACCESS_CONTROL_OPTIONS,
+    },
+    {
       name: 'organization',
       saveToJWT: true,
       type: 'relationship',
@@ -53,19 +66,6 @@ export const Users: CollectionConfig = {
       admin: {
         condition: ({ role }) => role === 'editor',
       },
-    },
-    {
-      name: 'role',
-      type: 'select',
-      label: 'Nível de acesso',
-      saveToJWT: true,
-      hasMany: false,
-      defaultValue: defaultRole.value,
-      access: {
-        create: isSuperAdminFieldLevel,
-        update: isSuperAdminFieldLevel,
-      },
-      options: ACCESS_CONTROL_OPTIONS,
     },
   ],
 }
