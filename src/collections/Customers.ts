@@ -66,7 +66,7 @@ export const Customers: CollectionConfig = {
       relationTo: 'works',
       label: 'Trabalhos',
       required: true,
-      hasMany: true,
+      hasMany: false,
       access: {
         create: isSuperAdminOrAdminOrEditorFieldLevel,
         update: isSuperAdminOrAdminOrEditorFieldLevel,
