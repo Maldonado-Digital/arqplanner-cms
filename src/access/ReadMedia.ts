@@ -21,6 +21,8 @@ export const readMediaAccessControl: Access = ({ req: { user } }) => {
 
   // Scenario #3 - Allow users without role (i.e. 'customers') to read Media
   // from the Work they are associated with
+  console.log('USER Works', user.works)
+
   if (!user.role && user.organization) {
     return {
       and: [
@@ -31,11 +33,9 @@ export const readMediaAccessControl: Access = ({ req: { user } }) => {
           },
         },
         {
-          or: user.works.map(work => ({
-            works: {
-              contains: work,
-            },
-          })),
+          works: {
+            contains: user.works,
+          },
         },
       ],
     }

@@ -25,8 +25,8 @@ export interface Config {
 export interface User {
   id: string;
   name?: string | null;
-  organization?: (string | null) | Organization;
   role?: ('super_admin' | 'admin' | 'editor') | null;
+  organization?: (string | null) | Organization;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -57,7 +57,7 @@ export interface Customer {
   name: string;
   phone_number?: string | null;
   social_media?: string | null;
-  works: (string | Work)[];
+  works: string | Work;
   organization: string | Organization;
   updatedAt: string;
   createdAt: string;
