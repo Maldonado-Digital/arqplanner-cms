@@ -31,9 +31,7 @@ export const readWorksAccessControl: Access = ({ req: { user } }) => {
           },
         },
         {
-          id: {
-            in: user.works,
-          },
+          id: user.works,
         },
       ],
     }
