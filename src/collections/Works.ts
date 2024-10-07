@@ -16,7 +16,7 @@ import { step } from '../fields/step'
 
 export const Works: CollectionConfig = {
   slug: 'works',
-  defaultSort: '-createdAt',
+  // defaultSort: '-createdAt',
   labels: {
     plural: 'Trabalhos',
     singular: 'Trabalho',
@@ -32,6 +32,9 @@ export const Works: CollectionConfig = {
     create: createWorksAccessControl,
     update: updateWorksAccessControl,
     delete: deleteWorksAccessControl,
+  },
+  hooks: {
+    beforeChange: [],
   },
   fields: [
     {
