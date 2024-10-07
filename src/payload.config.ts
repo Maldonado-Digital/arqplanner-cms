@@ -59,4 +59,9 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI,
   }),
+  upload: {
+    limits: {
+      fileSize: 500000000, // 500MB, written in bytes
+    },
+  },
 })
