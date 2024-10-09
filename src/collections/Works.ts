@@ -25,6 +25,7 @@ export const Works: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'steps', 'events', 'projects', 'documents', 'quotes'],
     hideAPIURL: true,
+    disableDuplicate: true,
   },
   endpoints: [resolveProject, resolveRender],
   access: {
