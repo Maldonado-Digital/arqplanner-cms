@@ -24,6 +24,7 @@ export const photo: Field = {
       },
       type: 'array',
       required: true,
+      minRows: 1,
       fields: [
         {
           name: 'uploads',
