@@ -22,6 +22,7 @@ export const readWorksAccessControl: Access = ({ req: { user } }) => {
   // Scenario #3 - Allow users without role (i.e. 'customers') to read works
   // from the same organization only if they are associated with it
   if (!user.role && user.organization) {
+    const workId = typeof user.works?.id === 'string' ? user.works.id : user.works
     return {
       and: [
         {
@@ -31,7 +32,9 @@ export const readWorksAccessControl: Access = ({ req: { user } }) => {
           },
         },
         {
-          id: user.works,
+          id: {
+            equals: workId,
+          },
         },
       ],
     }
