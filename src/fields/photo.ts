@@ -23,6 +23,7 @@ export const photo: Field = {
         plural: 'Arquivos',
       },
       type: 'array',
+      minRows: 1,
       fields: [
         {
           name: 'uploads',
